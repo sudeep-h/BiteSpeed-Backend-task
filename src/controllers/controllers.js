@@ -1,5 +1,5 @@
 const Contact = require('../models/contacts.model.js');
-const {Op} = rqeuire('sequelize');
+const {Op} = require('sequelize');
 
 const identifyContact=async (req,res)=>{
     const {email,phoneNumber} =req.body;
@@ -8,6 +8,22 @@ const identifyContact=async (req,res)=>{
             [Op.or]: [{ email }, { phoneNumber }],
         }
     })
+
+    if(contacts.length===0){
+        const newContact = await Contact.create({
+            email,
+            phoneNumber,
+            linkPrecedence:'primary'
+        });
+        return res.status(200).json({
+            contact: {
+              primaryContactId: newContact.id,
+              emails: [newContact.email],
+              phoneNumbers: [newContact.phoneNumber],
+              secondaryContactIds: [],
+            },
+        });
+    }
     
     let primaryContact = contacts.find((c)=>c.linkPrecedence==='primary');
     if(!primaryContact){

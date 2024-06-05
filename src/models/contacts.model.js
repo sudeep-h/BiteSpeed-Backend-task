@@ -1,22 +1,22 @@
 const sequelize = require('../config/database.config.js');
-const {datatypes} = require('sequelize');
+const {DataTypes} = require('sequelize');
 
 const Contact= sequelize.define('Contact',{
     id:{
-        type:datatypes.INTEGER,
+        type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true,
     },
     phoneNumber:{
-        type:datatypes.STRING,
+        type:DataTypes.STRING,
         allowNull:true,
     },
     email:{
-        type:datatypes.STRING,
+        type:DataTypes.STRING,
         allowNull:true
     },
     linkedId:{
-        type:datatypes.INTEGER,
+        type:DataTypes.INTEGER,
         allowNull:true,
     },
     linkPrecedence:{
@@ -24,15 +24,15 @@ const Contact= sequelize.define('Contact',{
         allowNull:true
     },
     createdAt: {
-        type: datatypes.DATE,
-        defaultValue: datatypes.NOW,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
     },
     updatedAt: {
-        type: datatypes.DATE,
-        defaultValue: datatypes.NOW,
+        type: DataTypes.DATE,
+        defaultValue: DataTypes.NOW,
     },
     deletedAt: {
-        type: datatypes.DATE,
+        type: DataTypes.DATE,
         allowNull: true,
     },
 })
